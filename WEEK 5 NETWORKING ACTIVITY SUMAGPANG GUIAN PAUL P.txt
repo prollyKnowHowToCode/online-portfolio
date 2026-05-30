@@ -1,0 +1,36 @@
+What is the setting for bits per second
+- 9600
+What is the prompt displayed on the screen
+- Press RETURN to get started!
+Which command begins with the letter "C"
+- connect 
+Which Commands are displayed with t?
+telnet terminal traceroute 
+Which Commands are displayed with te?
+- telnet terminal 
+What displayers after pressing the Tab key? (en)
+- enable 
+What would happen if you typed te<Tab> at the prompt
+- Nothing 
+How many commands displayed with c in privileged mode
+- 5 = Clear, Clock, Configure, Connect, Copy 
+What is the message that is displayed?
+- Configuring from terminal, memory, or network [termina]? 
+How does the prompt change?
+- from S1# to S1(config)# 
+What information is displayed on clock?
+- 13:24:24.322 UTC Mon Mar 1 1993
+What information is displayed in clock ?
+- set Set the time and date
+What information is being requested at clock?
+- hh:mm:ss Current time 
+What would have been displayed if only the clock set is entered?
+- % Incomplete command. 
+What information was returned with cl<enter>?
+- % Ambiguous command: "cl" 
+What information was returned with clock
+- % Incomplete command.
+What information was returned with clock set 15:00:00 32 
+- % Invalid input detected at '^' marker.
+What information was returned with clock set 15:00:00
+- % Incomplete Command. 

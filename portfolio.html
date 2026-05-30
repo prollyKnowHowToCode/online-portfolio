@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guian Paul Sumagpang — Networking Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #111720;
+    --card: #161d27;
+    --border: #1f2e3d;
+    --accent: #00e5ff;
+    --accent2: #7c5cfc;
+    --text: #e8f0fe;
+    --muted: #6b7f94;
+    --label: #00e5ff;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* grid noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  header {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    padding: 3.5rem 0 2rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── FILTER PILLS ── */
+  .filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .pill {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 5px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .pill:hover, .pill.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,255,0.06);
+  }
+
+  /* ── LAB GRID ── */
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .lab-card {
+    background: var(--card);
+    padding: 1.5rem;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .lab-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.25s ease;
+  }
+
+  .lab-card:hover {
+    background: #1a2333;
+  }
+
+  .lab-card:hover::after {
+    transform: scaleY(1);
+  }
+
+  .lab-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .lab-type {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .type-routing    { color: #7c5cfc; background: rgba(124,92,252,0.12); border: 1px solid rgba(124,92,252,0.25); }
+  .type-switching  { color: #00e5ff; background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2); }
+  .type-dhcp       { color: #f5a623; background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.2); }
+  .type-subnetting { color: #4caf50; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.2); }
+  .type-ios        { color: #ff6b6b; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.2); }
+
+  .lab-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  .lab-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .lab-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .lab-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .lab-date {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .lab-size {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--muted);
+  }
+
+  /* placeholder screenshot area */
+  .screenshot-slot {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    transition: border-color 0.2s;
+  }
+
+  .lab-card:hover .screenshot-slot {
+    border-color: rgba(0,229,255,0.3);
+  }
+
+  .screenshot-slot svg {
+    opacity: 0.3;
+  }
+
+  /* ── SKILLS ── */
+  .skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .skill-chip {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .skill-chip:hover {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  @media (max-width: 600px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+
+  .about-cell {
+    background: var(--card);
+    padding: 1.5rem;
+  }
+
+  .about-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .about-value {
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-name {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-note {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  /* hidden cards for filter */
+  .lab-card.hidden { display: none; }
+
+  /* ── VIDEOS ── */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .video-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .video-card:hover {
+    border-color: rgba(0,229,255,0.35);
+  }
+
+  .video-wrap {
+    position: relative;
+    background: #000;
+    aspect-ratio: 16/9;
+  }
+
+  .video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+    color: var(--accent);
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .video-wrap:has(video:playing) .video-overlay,
+  .video-wrap video:not([paused]) ~ .video-overlay {
+    opacity: 0;
+  }
+
+  .video-info {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .video-badge {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    width: fit-content;
+    color: #7c5cfc;
+    background: rgba(124,92,252,0.12);
+    border: 1px solid rgba(124,92,252,0.25);
+  }
+
+  .video-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .video-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .video-meta {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--muted);
+    gap: 0.5rem;
+  }
+
+  .video-meta span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+
+  .contact-card {
+    background: var(--card);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.2s;
+  }
+
+  .contact-card:hover {
+    background: #1a2333;
+  }
+
+  .contact-icon {
+    color: var(--accent);
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .contact-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+
+  .contact-value {
+    font-size: 0.85rem;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* ── PHOTOSHOP ── */
+  .ps-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .ps-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .ps-card:hover {
+    border-color: rgba(124,92,252,0.4);
+  }
+
+  .ps-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ps-badge {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    color: #f5a623;
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.25);
+  }
+
+  .ps-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  .ps-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .ps-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .ba-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .ba-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ba-tab {
+    flex: 1;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px;
+    background: transparent;
+    color: var(--muted);
+    border: none;
+    border-right: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .ba-tab:last-child { border-right: none; }
+  .ba-tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .ba-tab.active {
+    color: var(--accent2);
+    background: rgba(124,92,252,0.08);
+    border-bottom: 2px solid var(--accent2);
+  }
+
+  .ba-panel { display: none; flex-direction: column; }
+  .ba-panel.active { display: flex; }
+
+  .ba-panel img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    background: #000;
+  }
+
+  .ba-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding: 8px 12px;
+    border-top: 1px solid var(--border);
+    text-transform: uppercase;
+  }
+
+  .ps-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .ps-tags span {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ── CAPSTONE ── */
+  .capstone-wrap { margin-bottom: 4rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .capstone-hero {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+  }
+
+  .capstone-hero img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    display: block;
+    opacity: 0.8;
+  }
+
+  .capstone-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,14,20,0.97) 0%, rgba(10,14,20,0.2) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    gap: 0.6rem;
+  }
+
+  .capstone-engine {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .capstone-engine::before { content: ''; display: inline-block; width: 16px; height: 1px; background: var(--accent); }
+
+  .capstone-title {
+    font-family: var(--mono);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .capstone-title span { color: var(--accent); }
+
+  .capstone-subtitle {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 580px;
+    line-height: 1.7;
+  }
+
+  .capstone-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .capstone-meta-cell { background: var(--card); padding: 1rem 1.25rem; }
+
+  .capstone-meta-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .capstone-meta-value { font-size: 0.85rem; color: var(--text); font-weight: 400; line-height: 1.5; }
+
+  .capstone-gallery {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .gallery-tabs {
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  .gallery-tabs::-webkit-scrollbar { display: none; }
+
+  .gallery-tab {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    background: transparent;
+    color: var(--muted);
+    border: none;
+    border-right: 1px solid var(--border);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .gallery-tab:hover { color: var(--text); background: rgba(255,255,255,0.02); }
+  .gallery-tab.active { color: var(--accent); background: rgba(0,229,255,0.05); border-bottom: 2px solid var(--accent); }
+
+  .gallery-slide { display: none; flex-direction: column; }
+  .gallery-slide.active { display: flex; }
+
+  .gallery-slide img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    background: #000;
+    display: block;
+  }
+
+  .gallery-caption {
+    padding: 10px 1.25rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .capstone-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  .capstone-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+  .capstone-tag.green  { color: #4caf50; background: rgba(76,175,80,0.1);  border: 1px solid rgba(76,175,80,0.25); }
+  .capstone-tag.blue   { color: #00e5ff; background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2); }
+  .capstone-tag.purple { color: #7c5cfc; background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.25); }
+  .capstone-tag.orange { color: #f5a623; background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.2); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <header>
+    <div class="hero-tag">Website Portfolio</div>
+    <h1>Guian Paul<br><span>Sumagpang</span></h1>
+    <!-- <p class="hero-sub">
+      Network fundamentals practitioner documenting hands-on Cisco Packet Tracer labs covering routing, switching, DHCP, subnetting, and IOS configuration.
+    </p> -->
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">20+</span>
+        <span class="stat-label">Lab files</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">5</span>
+        <span class="stat-label">Topic areas</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">NET101</span>
+        <span class="stat-label">Course</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <div class="section-header">
+    <span class="section-title">// About</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-cell">
+      <div class="about-label">Student</div>
+      <div class="about-value">Sumagpang, Guian Paul P.</div>
+    </div>
+    <div class="about-cell">
+      <div class="about-label">Course</div>
+      <div class="about-value">Bachelor of Science in Information Technology</div>
+    </div>
+    <div class="about-cell">
+      <div class="about-label">Tools used</div>
+      <div class="about-value">Cisco Packet Tracer, MS Office, Google Workspace, Adobe Photoshop, CapCut, Unity Engine, VSCode, Notepad++, SQL Server Management Studio 21</div>
+    </div>
+    <div class="about-cell">
+      <div class="about-label">Focus areas</div>
+      <div class="about-value">Networking</div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section-header">
+    <span class="section-title">// Skills </span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-row">
+    <span class="skill-chip">TCP/IP fundamentals</span>
+    <span class="skill-chip">IOS navigation</span>
+    <span class="skill-chip">MAC & IP addressing</span>
+    <span class="skill-chip">Static routing</span>
+    <span class="skill-chip">DHCP relay</span>
+    <span class="skill-chip">VLSM</span>
+    <span class="skill-chip">Subnetting</span>
+    <span class="skill-chip">Switch configuration</span>
+    <span class="skill-chip">Router configuration</span>
+    <span class="skill-chip">Network topology</span>
+    <span class="skill-chip">Video and Image Editing</span>
+    <span class="skill-chip">Graphics Design</span>
+    <span class="skill-chip">Basic Programming</span>
+    <span class="skill-chip">Basic Web Development</span>
+    <span class="skill-chip">Basic Game Development</span>
+    <span class="skill-chip">Basic Database Managament</span>
+  </div>
+
+  <!-- LABS -->
+  <div class="section-header">
+    <span class="section-title">// Compilation of Works</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="filters">
+    <button class="pill active" onclick="filterLabs('all', this)">All</button>
+    <button class="pill" onclick="filterLabs('routing', this)">Routing</button>
+    <button class="pill" onclick="filterLabs('switching', this)">Switching</button>
+    <button class="pill" onclick="filterLabs('dhcp', this)">DHCP</button>
+    <button class="pill" onclick="filterLabs('subnetting', this)">Subnetting</button>
+    <button class="pill" onclick="filterLabs('ios', this)">IOS</button>
+  </div>
+
+  <div class="lab-grid" id="labGrid">
+
+    <!-- Build a Switch and Router Network -->
+    <div class="lab-card" data-type="routing">
+      <div class="lab-card-top">
+        <span class="lab-type type-routing">Routing</span>
+        <span class="lab-num">#01</span>
+      </div>
+      <img src="screenshots/Week-2-Activity.png" alt="Week-2-Activity" style="width:100%; border-radius:6px; display:block;">
+      <div class="lab-title">Build a Switch and Router Network</div>
+      <div class="lab-desc">Demonstrates connected and configured PC's, configured a router, verified end-to-end connectivity, configured a switch and secure and verify remote access to the router.</div>
+      <div class="lab-footer">
+        <span class="lab-date">AUG 26, 2024</span>
+        <span class="lab-size">1.1 MB</span>
+      </div>
+    </div>
+
+    <!-- Implement Basic Connectivity -->
+    <div class="lab-card" data-type="routing">
+      <div class="lab-card-top">
+        <span class="lab-type type-routing">Routing</span>
+        <span class="lab-num">#02</span>
+      </div>
+      <img src="screenshots/Week-3-Activity.png" alt="Week-3-Activity" style="width:100%; border-radius:6px; display:block;">
+      <div class="lab-title">Implement Basic Connectivity</div>
+      <div class="lab-desc">Performed a Basic Configuration on Switches 1 and 2, Configured the PC's and Configured the Switch Management Interfaces. Demonstrating basic switch configurations and implementing basic connectivity by configuring IP Addressing on the switches and PCs.</div>
+      <div class="lab-footer">
+        <span class="lab-date">SEP 2, 2024</span>
+        <span class="lab-size">523 KB</span>
+      </div>
+    </div>
+
+    <!-- Identify MAC and IP Addresses -->
+    <div class="lab-card" data-type="routing">
+      <div class="lab-card-top">
+        <span class="lab-type type-routing">Routing</span>
+        <span class="lab-num">#03</span>
+      </div>
+      <img src="screenshots/Week-3-MacAddress.png" alt="Week-4-MacAddress" style="width:100%; border-radius:6px; display:block;">
+      <div class="lab-title">Identify MAC and IP Addresses</div>
+      <div class="lab-desc">Understanding how MAC and IP Addresses change depending on the destination via local or remote network communication and the place where the PDUs are captured. Inspecting Ethernet Frames and IP Packets at different points in the network, traveling from source to destination.</div>
+      <div class="lab-footer">
+        <span class="lab-date">SEP 16, 2024</span>
+        <span class="lab-size">693 KB</span>
+      </div>
+    </div>
+
+    <!-- Navigating the IOS -->
+    <div class="lab-card" data-type="ios">
+      <div class="lab-card-top">
+        <span class="lab-type type-ios">Ios</span>
+        <span class="lab-num">#04</span>
+      </div>
+      <img src="screenshots/Week-5-NavigateIoS.png" alt="Week-5-NavigateIoS" style="width:100%; border-radius:6px; display:block;">
+      <div class="lab-title">Navigating the IOS</div>
+      <div class="lab-desc">Establishing Basic Connections, Accessing the CLI, Exploring Help, Exploring EXEC Modes and Setting up a Clock. Basic concepts to navigate the Cisco IOS</div>
+      <div class="lab-footer">
+        <span class="lab-date">SEP 29, 2024</span>
+        <span class="lab-size">501 KB</span>
+      </div>
+    </div>
+
+    <!-- TCP and UDP Communications -->
+    <div class="lab-card" data-type="routing">
+      <div class="lab-card-top">
+        <span class="lab-type type-routing">Routing</span>
+        <span class="lab-num">#05</span>
+      </div>
+      <img src="screenshots/Week-6-TCPUDP.png" alt="Week-6-TCPUDP" style="width:100%; border-radius:6px; display:block;">
+      <div class="lab-title">TCP and UDP Communications</div>
+      <div class="lab-desc">Generated a Network Traffic in Simulation Mode to determine and understand how TCP and UDP Protocols function, Multiplexing and Port Number Functions.</div>
+      <div class="lab-footer">
+        <span class="lab-date">OCT 7, 2025</span>
+        <span class="lab-size">656 KB</span>
+      </div>
+    </div>
+
+    <!-- Subnetting -->
+    <div class="lab-card" data-type="subnetting">
+      <div class="lab-card-top">
+        <span class="lab-type type-subnetting">Subnetting</span>
+        <span class="lab-num">#06</span>
+      </div>
+      <img src="screenshots/Week-8-Subnetting_2.png" alt="Week-8-Subnetting_2" style="width:100%; border-radius:6px; display:block;">
+      <div class="lab-title">Subnetting</div>
+      <div class="lab-desc">Demonstrating subnetting by dividing different IP Addresses into separate subnet ranges.</div>
+      <div class="lab-footer">
+        <span class="lab-date">OCT 21, 2024</span>
+        <span class="lab-size">59 KB</span>
+      </div>
+    </div>
+
+    <!-- VLSM -->
+    <div class="lab-card" data-type="routing">
+      <div class="lab-card-top">
+        <span class="lab-type type-routing">Routing</span>
+        <span class="lab-num">#07</span>
+      </div>
+      <img src="screenshots/Week-9-VLSM_1.png" alt="Week-9-VLSM_1" style="width:100%; border-radius:6px; display:block;">
+      <div class="lab-title">VLSM</div>
+      <div class="lab-desc">Demonstrating VLSM which is a subnetting technique used to prevent IP Address Wastage, assigning smaller subnets to networks with fewer hosts requirement.</div>
+      <div class="lab-footer">
+        <span class="lab-date">OCT 27, 2024</span>
+        <span class="lab-size">130 KB</span>
+      </div>
+    </div> 
+  </div>
+
+  <!-- VIDEOS -->
+  <div class="section-header">
+    <span class="section-title">// Video demos</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="video-wrap">
+        <video controls preload="none" poster="" muted>
+          <source src="recordings/SUMAGPANG GUIAN PAUL P.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-badge">Demo</div>
+        <div class="video-title">Subnetting and VLS Activity</div>
+        <div class="video-desc">Screen recording doing Subnetting and VLSM.</div>
+        <div class="video-meta">
+          <span>SUMAGPANG GUIAN PAUL P.mp4</span>
+          <span>152 MB</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-wrap">
+        <video controls preload="none" poster="" muted>
+          <source src="recordings/Vitan & Sumagpang Dhcp Relay.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-badge">Collab</div>
+        <div class="video-title">DHCP Relay Activity</div>
+        <div class="video-desc">Collaborative lab recording with partner, covering DHCP relay agent configuration and troubleshooting across VLANs.</div>
+        <div class="video-meta">
+          <span>Dhcp Relay.mp4</span>
+          <span>210 MB</span>
+        </div>
+      </div>
+    </div>
+
+  <!-- VIDEOS -->
+  <div class="section-header">
+    <span class="section-title">// ITC Video demos</span>
+    <div class="section-line"></div>
+  </div>
+
+    <div class="video-card">
+      <div class="video-wrap">
+        <video controls preload="none" poster="" muted>
+          <source src="ITC/BEAUTY OF THE NIGHT.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-badge">Demo</div>
+        <div class="video-title">BEAUTY OF THE NIGHT PPT | BNW TO COLOR</div>
+        <div class="video-desc">Basic transition from Black and White to Colored Slides in PowerPoint.</div>
+        <div class="video-meta">
+          <span>BEAUTY OF THE NIGHT.mp4</span>
+          <span>46 MB</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-wrap">
+        <video controls preload="none" poster="" muted>
+          <source src="ITC/Interactive Project (Trolley).mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-badge">Demo</div>
+        <div class="video-title">Interactive Trolley Problem PPT</div>
+        <div class="video-desc">Demonstrating interactive features within PowerPoint.</div>
+        <div class="video-meta">
+          <span>Interactive Project (Trolley).mp4</span>
+          <span>12 MB</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-wrap">
+        <video controls preload="none" poster="" muted>
+          <source src="ITC/Interactive Solar System.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-badge">Demo</div>
+        <div class="video-title">Interactive Solar System PPT</div>
+        <div class="video-desc">Demonstrating interactive features within PowerPoint.</div>
+        <div class="video-meta">
+          <span>Interactive Solar System.mp4</span>
+          <span>60 MB</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-wrap">
+        <video controls preload="none" poster="" muted>
+          <source src="ITC/New Solar System.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-badge">Demo</div>
+        <div class="video-title">Solar System Animated PPT</div>
+        <div class="video-desc">Demonstrating Full Animations on PowerPoint</div>
+        <div class="video-meta">
+          <span>Dhcp Relay.mp4</span>
+          <span>47 MB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF -->
+  <div class="section-header">
+    <span class="section-title">// Intro to Computing</span>
+    <div class="section-line"></div>
+  </div>
+  
+   <iframe src="ITC/Government Application Form.pdf" width="100%" height="400px" style="border:none; border-radius:6px;"></iframe>
+   <iframe src="ITC/Magazine.pdf" width="100%" height="400px" style="border:none; border-radius:6px;"></iframe>
+ 
+  <!-- Java -->
+  <div class="section-header">
+    <span class="section-title">// Java</span>
+    <div class="section-line"></div>
+  </div>
+    <pre><code class="language-java">
+      import java.util.*;
+
+      public class Module1CaseStudy1BSIT27ASUS{ //variable declaration 
+          public ArrayList<Integer> allScores; 
+          public ArrayList<ArrayList<Integer>> sectionScores;
+
+          public Module1CaseStudy1BSIT27ASUS() { //Constructor
+              this.allScores = new ArrayList<>();
+              this.sectionScores = new ArrayList<>();
+          }
+
+          public void addScoreSection(int numScores) { //Method for adding Scores per Section 
+              ArrayList<Integer> sectionScore = new ArrayList<>(); 
+              Scanner sectionInput = new Scanner(System.in);
+              
+          for (int cycleOne = 0; cycleOne < numScores; cycleOne++) {
+                  System.out.print("Enter exam score for section " + (sectionScores.size() + 1) + ": ");
+                  int score = sectionInput.nextInt();
+                  sectionScore.add(score);
+                  allScores.add(score);
+            
+          } 	
+          
+              sectionScores.add(sectionScore);
+          } //end of addScoreSection
+
+          public double calculateAverage() { //Method for calculating the Average of all Scores 
+              int sum = 0;
+              for (int score : allScores) {
+                  sum += score;
+              }
+              return (double) sum / allScores.size();
+            
+          } //end of calculateAverage
+
+          public ArrayList<Double> calculateSectionAverages() { //Method for calculating the Average per Section using data type double in ArrayList
+              ArrayList<Double> averages = new ArrayList<>();
+          for (int cycleTwo = 0; cycleTwo < sectionScores.size(); cycleTwo++) {
+                  ArrayList<Integer> sectionScore = sectionScores.get(cycleTwo);
+                  int sum = 0;
+                  for (int score : sectionScore) {
+                      sum += score;
+                  }
+                  averages.add((double) sum / sectionScore.size()); 
+              }
+          return averages;
+          } //end of calculateSectionAverages
+
+          public int findHighestScore() { //Method for finding highest score in all sections 
+              int highestScore = allScores.get(0);
+              for (int score : allScores) {
+                  if (score > highestScore) {
+                      highestScore = score;
+                  }
+              }
+          return highestScore;
+          } //end of findHighestScore
+
+          public int findLowestScore() { //Method for finding lowest score in all sections 
+              int lowestScore = allScores.get(0);
+              for (int score : allScores) {
+                  if (score < lowestScore) {
+                      lowestScore = score;
+                  }
+              }
+              return lowestScore;
+          } //end of findLowestScore
+
+          public int findMode() { //Method for finding the most score number repeated in all sections 
+              int maxCount = 0;
+              int mode = 0;
+              for (int score : allScores) {
+                  int count = 0;
+                  for (int otherScore : allScores) {
+                      if (otherScore == score) {
+                          count++;
+                      }
+                  }
+                  if (count > maxCount) {
+                      maxCount = count;
+                      mode = score;
+                  }
+              }
+              return mode;
+          } //end of findMode
+
+          public double findMedian() { //Method for finding the middle score numbers of all sections 
+              ArrayList<Integer> sortedScores = new ArrayList<>(allScores);
+              Collections.sort(sortedScores);
+              int middleIndex = sortedScores.size() / 2;
+              double median;
+              if (sortedScores.size() % 2 == 0) {
+                  median = (sortedScores.get(middleIndex - 1)  + sortedScores.get(middleIndex)) / 2.0; //even
+              } else {
+                  median = sortedScores.get(middleIndex); //odd
+              }
+              return median;
+          } //end of findMedian
+
+          public static void main(String[] args) {
+              Module1CaseStudy1BSIT27ASUS analyzeList = new Module1CaseStudy1BSIT27ASUS();
+              Scanner userInput = new Scanner(System.in);
+              System.out.print("Enter number of sections: ");
+              int numSections = userInput.nextInt();
+              for (int cycleThree = 0; cycleThree < numSections; cycleThree++) {
+                  System.out.print("Enter number of students in section " + (cycleThree + 1) + ": ");
+                  int numStudents = userInput.nextInt();
+                  analyzeList.addScoreSection(numStudents);
+              }
+          
+          double average = analyzeList.calculateAverage();
+          ArrayList<Double> sectionAverages = analyzeList.calculateSectionAverages();
+          int highestScore = analyzeList.findHighestScore();
+          int lowestScore = analyzeList.findLowestScore();
+          int mode = analyzeList.findMode();
+          double median = analyzeList.findMedian();
+          
+              System.out.println("The average exam score for each individual section: ");
+          for(int cycleFour = 0; cycleFour < sectionAverages.size(); cycleFour++) {
+            System.out.println("Section " + (cycleFour + 1) + ": " + sectionAverages.get(cycleFour));
+          }
+          
+          System.out.println("The average exam score for all the students in all sections: " + average);
+          System.out.println("The highest exam score among all sections: " + highestScore);
+          System.out.println("The lowest exam score among all sections: " + lowestScore);
+          System.out.println("The exam score that appears most frequently among all sections: " + mode);
+          System.out.println("The middle exam score among all sections: " + median);
+          
+          } //end of main method
+      } //end of class 
+    </code></pre>
+  <!-- Java -->
+  <div class="section-header">
+    <span class="section-title">// Java 2</span>
+    <div class="section-line"></div>
+  </div>
+    <pre><code class="language-java">
+      import java.util.Scanner;
+
+      public class Module1CaseStudy2BSIT27ASUS{
+      public static void main(String [] args){
+      //psvm
+
+      //scanner
+      Scanner userInput = new Scanner(System.in);
+
+      //input of first and second number
+      System.out.print("Input first number: ");
+      int firstNum = userInput.nextInt();
+      System.out.print("Input second number: ");
+      int secondNum = userInput.nextInt();
+
+      System.out.println("--------------------");
+      System.out.println("");
+
+
+      System.out.println("[1] Multiplication \n[2] Division \n[3] Modulo");
+      System.out.print("Select an action:");
+
+      //user selection
+      int userSelect = userInput.nextInt();
+
+      //Multiplication
+      if (userSelect == 1){	
+      int mul = 0;
+      for (int counter = 0; counter < secondNum; counter++){
+        mul +=firstNum;	
+      }
+
+      System.out.println("Product: " + mul);
+      //end of Multiplication
+
+      //Division
+      } if (userSelect == 2){
+        int quo = 0;
+        int temp = firstNum;
+        for (; temp >= secondNum; quo++){
+          temp -= secondNum;
+      }
+      System.out.println("Quotient: " + quo);
+      //end of Division	
+
+      //Modulo
+      } if (userSelect == 3) {
+        int quo = 0;
+        int temp = firstNum;
+        for (; temp >= secondNum; quo++){
+          temp -= secondNum;
+          
+      }
+        int remainder = temp;
+          System.out.println("Remainder: " + remainder);
+      }//end of Modulo
+
+      }//end of main method
+
+        }//end of class	
+    </code></pre>
+  <!-- Java -->
+  <div class="section-header">
+    <span class="section-title">// Java 3</span>
+    <div class="section-line"></div>
+  </div>
+    <pre><code class="language-java">
+      import java.util.Random;
+      import java.util.Scanner;
+
+      public class Module1CaseStudy3BSIT27ASUS{
+      public static void main(String [] args){
+      //psvm
+
+      Random userRandomNum = new Random();
+      Scanner userInput = new Scanner(System.in);
+      //Random number generator and Scanner 
+
+      //Creation of random number
+      int randomNumGen = userRandomNum.nextInt(50)+1;
+
+      System.out.println("\t----- GUESSING GAME -----");
+
+      int attempts = 1;
+
+      while (true){
+        //System.out.println("Random number generated: " + randomNumGen);
+        System.out.print("Enter a number (Attempt #" + attempts + ") : ");
+        attempts++;
+        int randomNumGuess = userInput.nextInt();
+        if (randomNumGuess > randomNumGen){
+          System.out.println("The guess number is lower than " + randomNumGuess);
+          
+        }else if (randomNumGuess < randomNumGen){
+          System.out.println("The guess number is higher than " + randomNumGuess);
+          
+        }else{
+          System.out.println("Congratulations, you got it right after " + (attempts - 1) + " attempts");
+          break;
+        }	
+        
+        
+        
+      } 
+
+
+      }
+      //end of main method
+      }
+      //end of class
+    </code></pre>
+
+  <!-- PHOTOSHOP -->
+  <div class="section-header">
+    <span class="section-title">// Photoshop edits</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="ps-grid">
+
+    <!-- 812 Superfast -->
+    <div class="ps-card">
+      <div class="ps-card-top">
+        <span class="ps-badge">Photo Manipulation</span>
+        <span class="ps-num">#PS01</span>
+      </div>
+      <div class="ps-title">812 Superfast — Grunge Edit</div>
+      <div class="ps-desc">Layered grunge effect on a Ferrari 812 Superfast using blending modes, texture overlays, pattern fills, bevel & emboss, and custom type treatment.</div>
+      <div class="ba-wrap" id="ba1">
+        <div class="ba-tabs">
+          <button class="ba-tab active" onclick="showPanel('ba1','before',this)">Before</button>
+          <button class="ba-tab" onclick="showPanel('ba1','after',this)">After</button>
+          <button class="ba-tab" onclick="showPanel('ba1','final',this)">Final PNG</button>
+        </div>
+        <div class="ba-panels">
+          <div class="ba-panel active" data-panel="before">
+            <img src="photoshop/812-before.png" alt="812 Superfast original in Photoshop">
+            <div class="ba-label">Before — raw photo in Photoshop</div>
+          </div>
+          <div class="ba-panel" data-panel="after">
+            <img src="photoshop/812-after.png" alt="812 Superfast grunge layer applied">
+            <div class="ba-label">After — grunge layer applied</div>
+          </div>
+          <div class="ba-panel" data-panel="final">
+            <img src="photoshop/812Superfast.png" alt="812 Superfast final export">
+            <div class="ba-label">Final export — 812Superfast.png</div>
+          </div>
+        </div>
+      </div>
+      <div class="ps-tags">
+        <span>Blending modes</span><span>Pattern Overlay</span><span>Bevel & Emboss</span><span>Inner/Outer Glow</span>
+      </div>
+    </div>
+
+    <!-- Grunge Car -->
+    <div class="ps-card">
+      <div class="ps-card-top">
+        <span class="ps-badge">Photo Manipulation</span>
+        <span class="ps-num">#PS02</span>
+      </div>
+      <div class="ps-title">Grunge Car — Drifting Edit</div>
+      <div class="ps-desc">Atmospheric drift scene with multi-layer texture treatment, Multiply blending, gradient overlays, and integrated typography — "Drifting is the art of controlled chaos."</div>
+      <div class="ba-wrap" id="ba2">
+        <div class="ba-tabs">
+          <button class="ba-tab active" onclick="showPanel('ba2','before',this)">Before</button>
+          <button class="ba-tab" onclick="showPanel('ba2','after',this)">After</button>
+          <button class="ba-tab" onclick="showPanel('ba2','final',this)">Final PNG</button>
+        </div>
+        <div class="ba-panels">
+          <div class="ba-panel active" data-panel="before">
+            <img src="photoshop/grunge-before.png" alt="Grunge Car original drift photo">
+            <div class="ba-label">Before — original drift photo</div>
+          </div>
+          <div class="ba-panel" data-panel="after">
+            <img src="photoshop/grunge-after.png" alt="Grunge Car layers applied">
+            <div class="ba-label">After — texture & typography layers</div>
+          </div>
+          <div class="ba-panel" data-panel="final">
+            <img src="photoshop/GrungeCar.png" alt="Grunge Car final export">
+            <div class="ba-label">Final export — GrungeCar.png</div>
+          </div>
+        </div>
+      </div>
+      <div class="ps-tags">
+        <span>Multiply blend</span><span>Gradient Overlay</span><span>Drop Shadow</span><span>Typography</span>
+      </div>
+    </div>
+
+    <!-- JJK -->
+    <div class="ps-card">
+      <div class="ps-card-top">
+        <span class="ps-badge">Digital Art</span>
+        <span class="ps-num">#PS03</span>
+      </div>
+      <div class="ps-title">Jujutsu Kaisen — Domain Expansion Edit</div>
+      <div class="ps-desc">Manga panel colorization — Sukuna's Malevolent Shrine vs. Gojo's Infinite Void, split-composition with color overlay, outer glow, and Bevel & Emboss on domain textures.</div>
+      <div class="ba-wrap" id="ba3">
+        <div class="ba-tabs">
+          <button class="ba-tab active" onclick="showPanel('ba3','before',this)">Before</button>
+          <button class="ba-tab" onclick="showPanel('ba3','after',this)">After</button>
+          <button class="ba-tab" onclick="showPanel('ba3','final',this)">Final PNG</button>
+        </div>
+        <div class="ba-panels">
+          <div class="ba-panel active" data-panel="before">
+            <img src="photoshop/jjk-before.png" alt="JJK manga original B&W panel">
+            <div class="ba-label">Before — B&W manga panel</div>
+          </div>
+          <div class="ba-panel" data-panel="after">
+            <img src="photoshop/jjk-after.png" alt="JJK color layers applied">
+            <div class="ba-label">After — domain color layers applied</div>
+          </div>
+          <div class="ba-panel" data-panel="final">
+            <img src="photoshop/JJKWhatevs.png" alt="JJK final export">
+            <div class="ba-label">Final export — JJKWhatevs.png</div>
+          </div>
+        </div>
+      </div>
+      <div class="ps-tags">
+        <span>Color Overlay</span><span>Outer Glow</span><span>Layer masking</span><span>Split composition</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CAPSTONE -->
+  <div class="section-header">
+    <span class="section-title">// Capstone project</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="capstone-wrap">
+
+    <!-- Hero banner using main menu screenshot -->
+    <div class="capstone-hero">
+      <img src="capstone/cd-mainmenu.png" alt="CyberDefender main menu">
+      <div class="capstone-hero-overlay">
+        <div class="capstone-engine">Ren'Py Visual Novel Engine</div>
+        <div class="capstone-title">CYBER<span>DEFENDER</span></div>
+        <div class="capstone-subtitle">A cybersecurity awareness visual novel game built for senior high school students of Valenzuela City — teaching safe online behavior through story-driven, choice-based gameplay.</div>
+      </div>
+    </div>
+
+    <!-- Meta info -->
+    <div class="capstone-meta">
+      <div class="capstone-meta-cell">
+        <div class="capstone-meta-label">Project type</div>
+        <div class="capstone-meta-value">Capstone / Game Development</div>
+      </div>
+      <div class="capstone-meta-cell">
+        <div class="capstone-meta-label">Engine</div>
+        <div class="capstone-meta-value">Ren'Py (Python-based)</div>
+      </div>
+      <div class="capstone-meta-cell">
+        <div class="capstone-meta-label">Genre</div>
+        <div class="capstone-meta-value">Visual Novel · Awareness Game</div>
+      </div>
+      <div class="capstone-meta-cell">
+        <div class="capstone-meta-label">Target audience</div>
+        <div class="capstone-meta-value">Senior High School Students</div>
+      </div>
+      <div class="capstone-meta-cell">
+        <div class="capstone-meta-label">Focus topic</div>
+        <div class="capstone-meta-value">Cybersecurity — Phishing, Scams, Safe Browsing</div>
+      </div>
+      <div class="capstone-meta-cell">
+        <div class="capstone-meta-label">Art style</div>
+        <div class="capstone-meta-value">Pixel art characters &amp; backgrounds</div>
+      </div>
+    </div>
+
+    <!-- Screenshot gallery -->
+    <div class="capstone-gallery">
+      <div class="gallery-tabs">
+        <button class="gallery-tab active"  onclick="showGallery('g1', this)">Main Menu</button>
+        <button class="gallery-tab"         onclick="showGallery('g2', this)">Character Select</button>
+        <button class="gallery-tab"         onclick="showGallery('g3', this)">Game Synopsis</button>
+        <button class="gallery-tab"         onclick="showGallery('g4', this)">About the Game</button>
+        <button class="gallery-tab"         onclick="showGallery('g5', this)">Tutorial &amp; FAQs</button>
+        <button class="gallery-tab"         onclick="showGallery('g6', this)">In-Game Menu</button>
+        <button class="gallery-tab"         onclick="showGallery('g7', this)">Gameplay</button>
+      </div>
+      <div class="gallery-frame">
+        <div class="gallery-slide active" id="g1">
+          <img src="capstone/cd-mainmenu.png" alt="CyberDefender main menu screen">
+          <div class="gallery-caption">Main menu — Get to Know the Characters · Game Synopsis · Tutorial &amp; FAQs · Become a CyberDefender</div>
+        </div>
+        <div class="gallery-slide" id="g2">
+          <img src="capstone/cd-character.png" alt="Character profile screen - CeeDee">
+          <div class="gallery-caption">Character profile — Main Protagonist CeeDee, an ICT student navigating cybersecurity threats</div>
+        </div>
+        <div class="gallery-slide" id="g3">
+          <img src="capstone/cd-synopsis.png" alt="Game synopsis screen">
+          <div class="gallery-caption">Game synopsis — CeeDee and Jace face real cybersecurity threats while Hank probes their defenses chapter by chapter</div>
+        </div>
+        <div class="gallery-slide" id="g4">
+          <img src="capstone/cd-about.png" alt="About the game screen">
+          <div class="gallery-caption">About the game — chapter-by-chapter story structure with interactive scenarios and cybersecurity minigames</div>
+        </div>
+        <div class="gallery-slide" id="g5">
+          <img src="capstone/cd-tutorial.png" alt="Tutorial and FAQs screen">
+          <div class="gallery-caption">Tutorial &amp; FAQs — save system walkthrough showing auto-saves and manual quick-saves</div>
+        </div>
+        <div class="gallery-slide" id="g6">
+          <img src="capstone/cd-ingamemenu.png" alt="In-game navigation menu">
+          <div class="gallery-caption">In-game menu — Start, Sync, Load, Settings, About, Help, Quit with pixel robot characters</div>
+        </div>
+        <div class="gallery-slide" id="g7">
+          <img src="capstone/cd-gameplay.png" alt="Gameplay screen with CeeDee dialogue">
+          <div class="gallery-caption">Gameplay — Awareness &amp; Corruption stat bars, Gears currency, dialogue system with character sprite and room background</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech tags -->
+    <div class="capstone-tags">
+      <span class="capstone-tag green">Ren'Py</span>
+      <span class="capstone-tag blue">Python</span>
+      <span class="capstone-tag purple">Pixel Art</span>
+      <span class="capstone-tag orange">Visual Novel</span>
+      <span class="capstone-tag green">Cybersecurity</span>
+      <span class="capstone-tag blue">Interactive Minigames</span>
+      <span class="capstone-tag purple">Character Design</span>
+      <span class="capstone-tag orange">Game Design</span>
+    </div>
+
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section-header">
+    <span class="section-title">// Contact</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">Full name</div>
+        <div class="contact-value">Sumagpang, Guian Paul P.</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">guianpaul210@gmail.com</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">www.linkedin.com/in/guian-paul-sumagpang-28562a411/</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">GitHub</div>
+        <div class="contact-value">github.com/prollyKnowHowToCode</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">SUMAGPANG, GUIAN PAUL P.</span>
+    <span class="footer-note">Projects and Activity Portfolio</span>
+  </footer>
+
+</div>
+
+<script>
+function filterLabs(type, btn) {
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.lab-card').forEach(card => {
+    if (type === 'all' || card.dataset.type === type) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+function showPanel(wrapId, panel, btn) {
+  const wrap = document.getElementById(wrapId);
+  wrap.querySelectorAll('.ba-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  wrap.querySelectorAll('.ba-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.panel === panel);
+  });
+}
+
+function showGallery(slideId, btn) {
+  btn.closest('.capstone-gallery').querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  btn.closest('.capstone-gallery').querySelectorAll('.gallery-slide').forEach(s => {
+    s.classList.toggle('active', s.id === slideId);
+  });
+}
+</script>
+
+</body>
+</html>
