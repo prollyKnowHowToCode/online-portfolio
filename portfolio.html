@@ -504,6 +504,65 @@
     white-space: nowrap;
   }
 
+  /* Google Drive link card */
+  .video-thumb {
+    aspect-ratio: 16/9;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    color: var(--muted);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,229,255,0.04), rgba(124,92,252,0.04));
+  }
+
+  .video-thumb svg { opacity: 0.25; }
+
+  .video-thumb-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.6;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .gdrive-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 9px 16px;
+    background: rgba(0,229,255,0.08);
+    border: 1px solid rgba(0,229,255,0.25);
+    border-radius: 6px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .gdrive-btn:hover {
+    background: rgba(0,229,255,0.15);
+    border-color: var(--accent);
+  }
+
   /* ── CONTACT ── */
   .contact-grid {
     display: grid;
@@ -835,6 +894,31 @@
   .capstone-tag.blue   { color: #00e5ff; background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2); }
   .capstone-tag.purple { color: #7c5cfc; background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.25); }
   .capstone-tag.orange { color: #f5a623; background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.2); }
+
+  /* ── PDF STACK ── */
+  .pdf-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .pdf-wrap {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .pdf-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 10px 1.25rem;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+  }
 </style>
 </head>
 <body>
@@ -1037,7 +1121,7 @@
     </div> 
   </div>
 
-  <!-- VIDEOS -->
+  <!-- VIDEOS
   <div class="section-header">
     <span class="section-title">// Video demos</span>
     <div class="section-line"></div>
@@ -1046,13 +1130,9 @@
   <div class="video-grid">
 
     <div class="video-card">
-      <div class="video-wrap">
-        <video controls preload="none" poster="" muted>
-          <source src="recordings/SUMAGPANG GUIAN PAUL P.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </div>
+      <div class="video-thumb">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <div class="video-thumb-label">Subnetting & VLSM Recording</div>
       </div>
       <div class="video-info">
         <div class="video-badge">Demo</div>
@@ -1062,34 +1142,40 @@
           <span>SUMAGPANG GUIAN PAUL P.mp4</span>
           <span>152 MB</span>
         </div>
+        <a class="gdrive-btn" href="https://drive.google.com/file/d/1xmejtv5PglUFxHV9h9TIaUCOlehSF6dK/view?usp=drive_link" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch on Google Drive
+        </a>
       </div>
     </div>
 
     <div class="video-card">
-      <div class="video-wrap">
-        <video controls preload="none" poster="" muted>
-          <source src="recordings/Vitan & Sumagpang Dhcp Relay.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </div>
+      <div class="video-thumb">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <div class="video-thumb-label">DHCP Relay Collab Recording</div>
       </div>
       <div class="video-info">
         <div class="video-badge">Collab</div>
         <div class="video-title">DHCP Relay Activity</div>
         <div class="video-desc">Collaborative lab recording with partner, covering DHCP relay agent configuration and troubleshooting across VLANs.</div>
         <div class="video-meta">
-          <span>Dhcp Relay.mp4</span>
+          <span>Vitan & Sumagpang Dhcp Relay.mp4</span>
           <span>210 MB</span>
         </div>
+        <a class="gdrive-btn" href="https://drive.google.com/file/d/1QYP9U9z0ad-_YJaIAl84VaKtoHCZ5K4w/view?usp=drive_link" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Watch on Google Drive
+        </a>
       </div>
-    </div>
+    </div> -->
 
-  <!-- VIDEOS -->
+  <!-- ITC VIDEOS -->
   <div class="section-header">
     <span class="section-title">// ITC Video demos</span>
     <div class="section-line"></div>
   </div>
+
+  <div class="video-grid">
 
     <div class="video-card">
       <div class="video-wrap">
@@ -1163,13 +1249,14 @@
       <div class="video-info">
         <div class="video-badge">Demo</div>
         <div class="video-title">Solar System Animated PPT</div>
-        <div class="video-desc">Demonstrating Full Animations on PowerPoint</div>
+        <div class="video-desc">Demonstrating Full Animations on PowerPoint.</div>
         <div class="video-meta">
-          <span>Dhcp Relay.mp4</span>
+          <span>New Solar System.mp4</span>
           <span>47 MB</span>
         </div>
       </div>
     </div>
+
   </div>
 
   <!-- PDF -->
@@ -1177,10 +1264,18 @@
     <span class="section-title">// Intro to Computing</span>
     <div class="section-line"></div>
   </div>
-  
-   <iframe src="ITC/Government Application Form.pdf" width="100%" height="400px" style="border:none; border-radius:6px;"></iframe>
-   <iframe src="ITC/Magazine.pdf" width="100%" height="400px" style="border:none; border-radius:6px;"></iframe>
- 
+
+  <div class="pdf-stack">
+    <div class="pdf-wrap">
+      <div class="pdf-label">Government Application Form</div>
+      <iframe src="ITC/Government Application Form.pdf" width="100%" height="420px" style="border:none; border-radius:0 0 8px 8px; display:block;"></iframe>
+    </div>
+    <div class="pdf-wrap">
+      <div class="pdf-label">Magazine Layout</div>
+      <iframe src="ITC/Magazine.pdf" width="100%" height="420px" style="border:none; border-radius:0 0 8px 8px; display:block;"></iframe>
+    </div>
+  </div>
+
   <!-- Java -->
   <div class="section-header">
     <span class="section-title">// Java</span>
